@@ -17,26 +17,22 @@ var AppView = Backbone.View.extend({
 
     this.listenTo(this.model, 'change', this.renderVideo);
     this.listenTo(this.model, 'change', function(){console.log('invoked view model change listener')});
+    this.model.on('change', this.renderVideo);
     videosCollection.on('change', function () {console.log("invoked videoView" + videosCollection.toJSON());});
   },
 
   search: function () {
     console.log('clicked submit');
-    var videosCollection = new VideosCollection();
     var searchQuery = this.$el.find('#search-input').val();
     console.log('the search query is: ' + searchQuery);
     videosCollection.getData(searchQuery);
-    videosCollection.on('change', function () {console.log(videosCollection.toJSON());}); //change to what target function?
     videosCollection.fetch();
   },
 
   renderVideo: function () {
     console.log('renderVideo invoked');
-    $('#player-div').append(appView.render().el);
-    $('#iframe').append(appView.render().el);
-    // var videoView = new VideoView({ model: VideoModel });
-    // this.$playerDiv.append(videoView.render().el);
-  },
+    this.$playerDiv.append(appView.renderVideo().el);
+  }
 
   // renderVideos: function () {
   //   this.model.get('videos').each(function (m) {
@@ -44,9 +40,9 @@ var AppView = Backbone.View.extend({
   //   }, this);
   // },
 
-  render: function () {
-
-    return this;
-  }
+  // render: function () {
+  //
+  //   return this;
+  // }
 
 });

@@ -1,8 +1,3 @@
-var videoModel = new VideoModel({
-  videoId: '',
-  title: '',
-  description:'',
-  channelTitle: '',
-});
+var videoModel = new VideoModel();
 
 var appView = new AppView({ model: videoModel });
