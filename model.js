@@ -1,17 +1,15 @@
 var VideoModel = Backbone.Model.extend({
   idAttribute: 'videoId',
 
-  defaults: function () {
-    return {
+  defaults: {
       videoId: '',
       title: '',
       description:'',
       channelTitle: '',
-    }
   },
 
   initialize: function () {
-    // this.on('change:videoId', this.onChange);
+    // this.on('change', this.onChange);
   },
 
   // when 'reviews' come in from the server, they're an array...
@@ -32,14 +30,11 @@ var VideoModel = Backbone.Model.extend({
     return this;
   },
 
-  clicked: function () {
-    this.trigger('clickedInMyView', this);
-  }
 
-  // onChange: function (model) {
-  //   console.log('invoked onChange');
-  //   console.log('onChange videoId: ' + this.get('videoId'));
-  // }
+  onChange: function (model) {
+    console.log('invoked onChange');
+    console.log('onChange videoId: ' + this.get('videoId'));
+  }
 
 //   parse: function(response) {
 //     var items = response.data.items;

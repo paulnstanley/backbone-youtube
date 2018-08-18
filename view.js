@@ -5,17 +5,19 @@ var AppView = Backbone.View.extend({
 
   events: {
     'click #search-submit': 'search',
-    'click': 'handleClick'
   },
+
+  template: Handlebars.compile($('#iframe-handlebars').html()),
+    // Handlebars.compile($('#video-info').html())
 
   initialize: function () {
     var videosCollection = new VideosCollection();
 
     this.$playerDiv = this.$('.player-div');
 
-    this.model.on('add change', this.onChange, this);
+    this.listenTo(this.model, 'change', this.renderVideo);
+    this.listenTo(this.model, 'change', function(){console.log('invoked view model change listener')});
     videosCollection.on('change', function () {console.log("invoked videoView" + videosCollection.toJSON());});
-    // this.listenTo(this.model, 'change', this.onChange);
   },
 
   search: function () {
@@ -30,16 +32,10 @@ var AppView = Backbone.View.extend({
 
   renderVideo: function () {
     console.log('renderVideo invoked');
-    var videoView = new VideoView({ model: VideoModel });
-    this.$playerDiv.append(videoView.render().el);
-  },
-
-  onChange: function () {
-    console.log('view says: added or changed a model!');
-  },
-
-  viewClick: function () {
-    this.model.clicked();
+    $('#player-div').append(appView.render().el);
+    $('#iframe').append(appView.render().el);
+    // var videoView = new VideoView({ model: VideoModel });
+    // this.$playerDiv.append(videoView.render().el);
   },
 
   // renderVideos: function () {

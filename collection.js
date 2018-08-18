@@ -19,10 +19,6 @@ var VideosCollection = Backbone.Collection.extend({
     console.log('concatenated URL is: ' + this.url);
   },
 
-  wasClicked: function() {
-    console.log('One of my models was clicked in the DOM!')
-  }
-
   // parse: function (response) {
   //   console.log('invoked parse');
   //   console.log(response);
